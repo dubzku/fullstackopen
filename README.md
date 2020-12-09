@@ -1,6 +1,6 @@
 # Full Stack open 2020
 
-View the course details [here](https://fullstackopen.com/en/).
+View the course [here](https://fullstackopen.com/en/).
 
 
 ## Course Details
