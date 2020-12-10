@@ -2,6 +2,20 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+const Display = (props) => {
+  return (
+    <div>{props.counter}</div>
+  )
+}
+
+const Button = (props) => {
+  return (
+    <button onClick={ props.handleClick }>
+      {props.text}
+    </button>
+  )
+}
+
 const App = () => {
   // function call usestate(0) adds state to the component - initializes it with the value of 0
   // function returns an array that contains two items
@@ -10,27 +24,17 @@ const App = () => {
   // 'setCounter' variable is assigned to a function that will be used to modify the state
   const [ counter, setCounter ] = useState(0)
   
-  // // call the setTimeout function, and pass it two parameters; a function to increment the counter state and a timeout of 1 second 
-  // // setCounter gets called 1 second after setTimeout gets called
-  // // when setCounter gets called, React re-renders the component, which means the function body of the component function gets re-executed 
-  // setTimeout(
-  //   () => setCounter(counter + 1),
-  //   1000
-  // )
-
-  // const handleClick = () => {
-  //   console.log('clicked')
-  // }
+  {/* when setCounter gets called, React re-renders the component, which means the function body of the component function gets re-executed  */}
+  const increaseByOne = () => setCounter(counter + 1)
+  const decreaseByOne = () => setCounter(counter - 1)
+  const setToZero = () => setCounter(0)
 
   return (
     <div>
-      <div>{counter}</div>
-      <button onClick={ () => setCounter(counter + 1) }>
-        plus
-      </button>
-      <button onClick={ () => setCounter(0)}>
-        zero
-      </button>
+      <Display counter={counter}/>
+      <Button text="plus" handleClick={ increaseByOne} />
+      <Button text="zero" handleClick={ setToZero} />
+      <Button text="minus" handleClick={ decreaseByOne } />
     </div>
   )
 }
