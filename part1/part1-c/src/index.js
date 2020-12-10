@@ -7,7 +7,6 @@ const Display = ( { counter } ) => <div>{counter}</div>
 const Button = ({ handleClick, text}) => <button onClick={ handleClick }>{text}</button>
   
 
-
 const App = () => {
   // function call usestate(0) adds state to the component - initializes it with the value of 0
   // function returns an array that contains two items
