@@ -1,10 +1,32 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const AnecdoteOfTheDay = ({anecdoteOfTheDay, numberOfVotes}) => {
+  return (
+    <div>
+      <h2>Anecdote of the day</h2>
+      <p>{anecdoteOfTheDay}</p>
+      <p>has {numberOfVotes} votes.</p>
+    </div>
+  )
+}
 
-const Button = ({handleButton, text}) => <button onClick={handleButton} style={{display: 'block'}}>{text}</button>
+const Button = ({handleButton, text}) => <button onClick={handleButton} style={{display: 'inline-block'}}>{text}</button>
 
-const App = (props) => {
+const DisplayMostVotes = ({highestNumOfVotes, anecdoteWithMostVotes}) => {
+  if (highestNumOfVotes > 0) {
+    return (
+      <div>
+        <h2>Anecdote with most votes</h2>
+        <p>{anecdoteWithMostVotes}</p>
+        <p>has {highestNumOfVotes} votes.</p>
+      </div>
+    )
+  }
+  return <div><p>no votes have been placed yet</p></div>
+}
+
+const App = ({anecdotes}) => {
   const randomNum = Math.floor(Math.random() * anecdotes.length)
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState({
@@ -15,6 +37,16 @@ const App = (props) => {
     4: 0,
     5: 0
   })
+
+  let array = [];
+
+  for (let anecdote in votes) {
+    array.push(votes[anecdote])
+  }
+
+  const largestVotes = Math.max(...array)
+  const indexOfLargestVotes = array.indexOf(Math.max(...array))
+
   
   const voteButton = () => {
     const newVotes = {
@@ -26,10 +58,10 @@ const App = (props) => {
 
   return (
     <div>
-      {props.anecdotes[selected]}
-      <p>has {votes[selected]} votes.</p>
+      <AnecdoteOfTheDay anecdoteOfTheDay={anecdotes[selected]} numberOfVotes={votes[selected]} />
       <Button handleButton={ voteButton } text="vote" />
       <Button handleButton={ () => setSelected(randomNum) } text="next anecdote" />
+      <DisplayMostVotes highestNumOfVotes={largestVotes} anecdoteWithMostVotes={anecdotes[indexOfLargestVotes]} />
     </div>
   )
 }
