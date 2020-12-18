@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
 
@@ -38,39 +41,20 @@ const App = () => {
       }
   }
 
-  const displayList = persons.filter((person) => {
-    if (newSearchQuery === '') {
-        return person
-    } else if (person.name.toLowerCase().includes(newSearchQuery.toLowerCase()) || person.name.toUpperCase().includes(newSearchQuery.toUpperCase())) {
-        return person
-    }
-  })
-
-
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-          filter shown with: <input value={newSearchQuery} onChange={handleSearchQueryChange} />
-      </div>
-      <h2>add a new</h2>
-      <form>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-            number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit" onClick={addToPhoneBook}>add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <div>
-        {
-            displayList.map((person, index) => <p key={index}>{person.name} {person.number}</p>)
-        }
-      </div>
+      <Filter newSearchQuery={newSearchQuery} handleSearchQueryChange={handleSearchQueryChange} />
+      <h3>Add a new</h3>
+      <PersonForm 
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+        addToPhoneBook={addToPhoneBook}
+      />
+      <h3>Numbers</h3>
+      <Persons persons={persons} newSearchQuery={newSearchQuery} />
     </div>
   )
 }
